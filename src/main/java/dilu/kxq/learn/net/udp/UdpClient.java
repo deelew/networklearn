@@ -11,7 +11,7 @@ public class UdpClient {
 	public static void main(String[] arg){
 		try {
 			DatagramSocket data = new DatagramSocket();
-			byte[] buf = "hello udp".getBytes();
+			byte[] buf = "hello udp oooo".getBytes();
 			int length = buf.length;
 			DatagramPacket p = new DatagramPacket(buf, length);
 			p.setAddress(InetAddress.getByName("127.0.0.1"));

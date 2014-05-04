@@ -1,4 +1,4 @@
-package dilu.kxq.learn.net;
+package dilu.kxq.learn.net.tcp;
 
 import java.io.IOException;
 import java.io.InputStream;
