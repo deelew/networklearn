@@ -19,24 +19,34 @@ public class ServerSide {
 				System.out.println("ok server start...");
 				Socket client = sSocket.accept() ;
 				SocketAddress remoteAddr = client.getRemoteSocketAddress();
-				System.out.println("receive access from ");
-				System.out.println(remoteAddr.toString()) ;
-				client.getInputStream() ;
+				System.out.println("receive access from " + remoteAddr.toString());
 				InetAddress clientIAdr = client.getInetAddress();
-				System.out.println("remote ip:");
-				System.out.println(clientIAdr.getHostAddress());
+				System.out.println("remote ip:" + clientIAdr.getHostAddress());
 				InputStream input = client.getInputStream() ;
 				byte[] bytes = new byte[100];
-				input.read(bytes);
-				System.out.write(bytes);
-				System.out.println(new String(bytes));
-				OutputStream out = client.getOutputStream();
-				out.write(("hello " + clientIAdr.getHostAddress()).getBytes());
+                int len = input.read(bytes,0,10);
+                input.close();
+//                int left = len ;
+//                int index ;
+                System.out.println(new String(bytes));
+//                OutputStream out = client.getOutputStream();
+//                while(left-- > 0){
+//                    index = len - left - 1;
+//                    out.write(bytes, index, 1);
+//                    Thread.sleep(1000);
+//                    out.flush();
+//
+//                }
+//                System.out.println(bytes.length);
+//				out.write(("hello " + clientIAdr.getHostAddress()).getBytes());
+//                out.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			tryCloseSocket(sSocket);
-		}finally{
+//		} catch (InterruptedException e) {
+//            e.printStackTrace();
+        } finally{
 			tryCloseSocket(sSocket);
 		}
 	}

@@ -8,12 +8,10 @@ import java.net.Socket;
 public class ClientSide {
 
 	public static void main(String[] arg ){
-		int port = 7001;
-		String host = "127.0.0.1";
 		Socket socket = null ;
 		OutputStream output = null ;
 		try {
-			socket = new Socket(host , port);
+			socket = new Socket(ConfigParams.ip , ConfigParams.port);
 			System.out.println("connected to server, start to commutication...");
 			output = socket.getOutputStream();
 			byte[] b = "hello server from cliet ".getBytes();
@@ -23,16 +21,17 @@ public class ClientSide {
 			InputStream in = socket.getInputStream() ;
 			byte[] fromServer = new byte[10];
 			StringBuilder sb = new StringBuilder();
+            int readtimes = 0 ;
 			while(true){
 				
 				int len = in.read(fromServer);
 				if(len==-1)
 					break;
+                readtimes ++ ;
 				sb.append(new String(fromServer,0,len));
-				if(len < fromServer.length)
-					break ;
 			}
-			System.out.println(sb.insert(0, "echo from server: ")); ;
+			System.out.println(sb.insert(0, "echo from server: "));
+            System.out.println("total read times " + readtimes);
 		}catch(IOException e){
 			e.printStackTrace();
 			tryCloseSIO(socket, output);
